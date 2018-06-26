@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		
+		<title></title>
+		<style type="text/css">
+			.box{
+				width: 1000px;height: 400px;border: 1px solid red;position: absolute;
+				top: 0;left: 0;background-repeat: no-repeat;display: none;background-size: 100% 100%;
+			}
+			img{
+				width: 300px;float: right;
+			}
+		</style>
+		<script src="js/jquery.js" type="text/javascript"></script>
+	</head>
+	<body>
+		<div class="box">
+			
+		</div>
+		<img src="img/000.jpg" style="margin-top: 400px;"/>
+		<img src="img/002.jpg" style="margin-left: 100px;"/>
+		<img src="img/003.jpg" style="margin-right: 100px;"/>
+		<img src="img/004.jpg"  style="margin-top: 100px;"/>
+		<img src="img/005.jpg" />
+	</body>
+	 <h3>您的鼠标已经被跟踪</h3>
+	 <p> X 轴坐标：<span id="x"></span></p>
+	 <p> Y 轴坐标：<span id="y"></span></p>
+</html>
+<script type="text/javascript">
+//	$(function(){
+//	
+//		
+//		$("img").mouseover(function(){
+//			var X = $(this).offset().top;
+//			var Y = $(this).offset().left;
+//			
+//		
+//			var ss=$(this).attr('src')
+//			$(".box").css({
+//				'top': X,'left': Y-1100
+//			})
+//			$(".box").css({"backgroundImage":"url("+ss+")",})
+//			$(".box").show()
+//		})
+//		$("img").mouseout(function(){
+//			$(".box").css({"backgroundImage":"url()",})
+//			$(".box").hide()
+//		})
+//	})
+	
+	
+	var x_axie;
+   function mousePosition(ev){
+if(ev.pageX || ev.pageY){//firefox、chrome等浏览器
+   return {x:ev.pageX,y:ev.pageY};
+}
+return {// IE浏览器
+   x:ev.clientX + document.body.scrollLeft - document.body.clientLeft,
+   y:ev.clientY + document.body.scrollTop - document.body.clientTop
+};
+   }
+   function mouseMove(ev){
+	ev = ev || window.event;
+	var mousePos = mousePosition(ev);
+	document.getElementById('x').innerHTML = mousePos.x;
+	document.getElementById('y').innerHTML = mousePos.y;
+	$("img").mouseover(function(){
+			var X = $(this).offset().top;
+			var Y = $(this).offset().left;
+			
+		
+			var ss=$(this).attr('src')
+			if(mousePos.x>1000){
+				$(".box").css({
+				'top': X,'left':Y-1200
+				})
+			}else if(mousePos.x<1000){
+				$(".box").css({
+				'top': X,'left':Y+300
+				})
+			}
+			
+			$(".box").css({"backgroundImage":"url("+ss+")",})
+			$(".box").show()
+		})
+		$("img").mouseout(function(){
+			$(".box").css({"backgroundImage":"url()",})
+			$(".box").hide()
+		})
+
+   }
+   document.onmousemove = mouseMove;
+	
+</script>
